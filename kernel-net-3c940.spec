@@ -8,7 +8,7 @@ Summary:	Linux driver for the 3Com 3C940/3C2000 Network Interface Cards
 Summary(pl):	Sterownik dla Linuksa do kart sieciowych 3Com 3C940/3C2000
 Name:		kernel-net-%{_orig_name}
 Version:	6.01
-%define	_rel	0.beta01.1
+%define	_rel	0.beta01.2
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
@@ -53,9 +53,14 @@ tar xzf 3c2000.tar.gz
 %build
 cd Linux/3c2000
 
-rm -f 3c2000.o
+rm -f *.o
+
 %{__make}
-mv -f 3c2000.o %{_orig_name}-smp.o
+mv -f 3c2000.o ../%{_orig_name}-up.o
+rm *.o
+
+cat Makefile | sed -e 's/^SMP_FLAG.*/SMP_FLAG=1/' > Makefile
+
 %{__make}
 mv -f 3c2000.o %{_orig_name}.o
 
@@ -64,11 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/misc
 
 cd Linux/3c2000
-install %{_orig_name}-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/%{_orig_name}.o
-install %{_orig_name}.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/%{_orig_name}.o
+install ../%{_orig_name}-up.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/%{_orig_name}.o
+install %{_orig_name}.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/%{_orig_name}.o
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+# rm -rf $RPM_BUILD_ROOT
 
 %post
 %depmod %{_kernel_ver}
