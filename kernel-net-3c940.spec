@@ -1,14 +1,14 @@
 #
 # Conditional build:
-# _without_dist_kernel          without distribution kernel
+%bcond_without	dist_kernel	# without distribution kernel
 #
 %define		_orig_name	3c940
 
-Summary:	Linux driver for the 3Com 3C990 Network Interface Cards
-Summary(pl):	Sterownik dla Linuksa do kart sieciowych 3Com 3C990
+Summary:	Linux driver for the 3Com 3C940/3C2000 Network Interface Cards
+Summary(pl):	Sterownik dla Linuksa do kart sieciowych 3Com 3C940/3C2000
 Name:		kernel-net-%{_orig_name}
-Version:	1.0.0a
-%define	_rel	10
+Version:	6.01
+%define	_rel	0.beta01.1
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
@@ -22,34 +22,33 @@ Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-empty
+Linux driver for the 3Com 3C940/3C2000 Gigabit Network Interface
+Cards.
+
+%description -l pl
+Sterownik dla Linuksa do gigabitowych kart sieciowych 3Com
+3C940/3C2000.
 
 %package -n kernel-smp-net-%{_orig_name}
-Summary:	Linux SMP driver for the 3Com 3C990 Network Interface Cards
-Summary(pl):	Sterownik dla Linuksa SMP dla kart sieciowych 3Com 3C990
+Summary:	Linux SMP driver for the 3Com 3C940/3C2000 Network Interface Cards
+Summary(pl):	Sterownik dla Linuksa SMP dla kart sieciowych 3Com 3C940/3C2000
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{!?_without_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-smp-net-%{_orig_name}
-This driver (3c990.c) has been written to work with the 3c990 product
-line of network cards, manufactured by 3Com Corp on SMP systems.
-
-This driver is not intended for any other product line, including the
-3c59x or 3c90x product lines (although drivers with both of these
-names, and for both of these product lines, are available).
+Linux SMP driver for the 3Com 3C940/3C2000 Gigabit Network Interface
+Cards.
 
 %description -n kernel-smp-net-%{_orig_name} -l pl
-Sterownik dla Linuksa SMP do kart sieciowych 3Com 3c990.
-
-Nie obs³uguje kart serii 3c59x i 3c90x, istniej± inne sterowniki do
-tych linii produktów.
+Sterownik dla Linuksa SMP dla gigabitowych kart sieciowych 3Com
+3C940/3C2000.
 
 %prep
-%setup -q -n 3c940 -c
-cd Linux/
-tar -zxvf 3c2000.tar.gz
+%setup -q -c
+cd Linux
+tar xzf 3c2000.tar.gz
 
 %build
 cd Linux/3c2000
@@ -61,10 +60,10 @@ mv -f 3c2000.o %{_orig_name}-smp.o
 mv -f 3c2000.o %{_orig_name}.o
 
 %install
-cd Linux/3c2000
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/misc
 
+cd Linux/3c2000
 install %{_orig_name}-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/%{_orig_name}.o
 install %{_orig_name}.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/%{_orig_name}.o
 
@@ -85,10 +84,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc readme
+%doc Linux/readme
 /lib/modules/%{_kernel_ver}/misc/*
 
 %files -n kernel-smp-net-%{_orig_name}
 %defattr(644,root,root,755)
-%doc README
+%doc Linux/readme
 /lib/modules/%{_kernel_ver}smp/misc/*
