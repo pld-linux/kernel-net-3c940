@@ -14,10 +14,10 @@ License:	GPL
 Group:		Base/Kernel
 Source0:	ftp://ftp.asus.com.tw/pub/ASUS/lan/3com/3c940/046_Linux.zip
 # Source0-md5:	38b555a929576527b034c14585b507d0
-%{!?_without_dist_kernel:BuildRequires:	kernel-headers }
+%{?with_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	%{kgcc_package}
 BuildRequires:	rpmbuild(macros) >= 1.118
-%{!?_without_dist_kernel:%requires_releq_kernel_up}
+%{?with_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,7 +34,7 @@ Summary:	Linux SMP driver for the 3Com 3C940/3C2000 Network Interface Cards
 Summary(pl):	Sterownik dla Linuksa SMP dla kart sieciowych 3Com 3C940/3C2000
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:%requires_releq_kernel_smp}
+%{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-smp-net-%{_orig_name}
