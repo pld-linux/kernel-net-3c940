@@ -5,7 +5,7 @@
 %define		_orig_name	3c940
 
 Summary:	Linux driver for the 3Com 3C940/3C2000 Network Interface Cards
-Summary(pl.UTF-8):   Sterownik dla Linuksa do kart sieciowych 3Com 3C940/3C2000
+Summary(pl.UTF-8):	Sterownik dla Linuksa do kart sieciowych 3Com 3C940/3C2000
 Name:		kernel-net-%{_orig_name}
 Version:	6.01
 %define	_rel	0.beta01.2
@@ -31,7 +31,7 @@ Sterownik dla Linuksa do gigabitowych kart sieciowych 3Com
 
 %package -n kernel-smp-net-%{_orig_name}
 Summary:	Linux SMP driver for the 3Com 3C940/3C2000 Network Interface Cards
-Summary(pl.UTF-8):   Sterownik dla Linuksa SMP dla kart sieciowych 3Com 3C940/3C2000
+Summary(pl.UTF-8):	Sterownik dla Linuksa SMP dla kart sieciowych 3Com 3C940/3C2000
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
