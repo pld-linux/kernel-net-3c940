@@ -17,6 +17,7 @@ Source0:	ftp://ftp.asus.com.tw/pub/ASUS/lan/3com/3c940/046_Linux.zip
 %{?with_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	%{kgcc_package}
 BuildRequires:	rpmbuild(macros) >= 1.118
+BuildRequires:	unzip
 %{?with_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
