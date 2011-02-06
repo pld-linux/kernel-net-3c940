@@ -74,7 +74,7 @@ install ../%{_orig_name}-up.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/%{
 install %{_orig_name}.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/%{_orig_name}.o
 
 %clean
-# rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %post
 %depmod %{_kernel_ver}
